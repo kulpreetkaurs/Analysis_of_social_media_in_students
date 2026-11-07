@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Analytics Portfolio</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDVaLxUbdPTFRlBE7w_js72Z_M8IplpoX8",
+  authDomain: "student-social-media-analysis.firebaseapp.com",
+  projectId: "student-social-media-analysis",
+  storageBucket: "student-social-media-analysis.firebasestorage.app",
+  messagingSenderId: "939621840778",
+  appId: "1:939621840778:web:6b205f509ff16e0b03fa73",
+  measurementId: "G-T9QHTV60SH"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+window.addEventListener("DOMContentLoaded", () => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const emailSpan = document.getElementById("userEmail");
+            if (emailSpan) {
+                emailSpan.innerText = "👤 " + user.email;
+            }
+        } else {
+            window.location.href = "login.html";
+        }
+    });
+});
+window.logout = function () {
+    signOut(auth).then(() => {
+        window.location.href = "login.html?logout=success";
+    });
+};
+import { setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+setPersistence(auth, browserSessionPersistence);
+</script>
+<body>
+<section class="hero">
+    <div class="hero-content">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <div>
+            <h1>Analysis of Social Platforms in Students</h1>
+            <p>Analyzing the impact of Social Media Usage on Mental Health, Addiction, and Academic Performance</p>
+        </div>
+    </div>
+</section>
+<nav>
+    <button onclick="showSection('aboutProject')">About</button>
+    <button onclick="showSection('kpi')">KPI's</button>
+    <button onclick="showSection('usage')">Basic Insights</button>
+    <button onclick="showSection('insights')">Advanced Insights</button>
+    <button onclick="showSection('keyInsights')">Findings</button>
+    <button onclick="showSection('aboutMe')">About Me</button>
+    <button onclick="window.location.href='contact.html'">Contact Us</button>
+    <span id="userEmail" style="margin-left:auto; padding:10px;"></span>
+    <button onclick="logout()" title="Logout">Logout <i class="fas fa-sign-out-alt"></i></button>
+</nav>
+<div id="aboutProject" class="section active">
+    <section class="tools">
+        <h2>Tools & Technologies Used</h2>
+        <div class="tools-container">
+            <img src="images/tableau_img.jpg" alt="Tableau">
+            <img src="images/python_img.jpg" alt="Python">
+            <img src="images/kaggle_img.svg" alt="Kaggle">
+            <img src="images/google_forms_img.webp" alt="Google Forms">
+            <img src="images/web.jpg" alt="Web Development">
+        </div>
+    </section>
+    <div class="card">
+        <div class="insight-box">
+            <h2>About the Project</h2>
+            <p>
+                Student Social Media Analytics Project analyzes the impact of Social Media usage on Students' Mental Health, Addiction levels, Sleep patterns, and Academic Performance. This project focuses on analyzing the growing influence of social media usage on students' overall well-being and academic performance. With the rapid rise of platforms like Instagram, Facebook, and others, students are spending increasing amounts of time online, which may significantly affect their mental health, sleep quality, productivity, and daily routines.
+                <br>The study leverages data analytics and visualization techniques to uncover patterns and correlations between social media usage and key lifestyle factors such as mental health scores, sleep duration, addiction levels, and academic outcomes. By transforming raw data into meaningful insights through dashboards and visualizations, the project aims to provide a clear understanding of how digital habits shape student life. 
+                <br> Ultimately, this project serves as a data-driven approach to highlight potential risks, encourage responsible usage, and support informed decision-making for students, educators, and researchers.
+            </p>
+        </div>
+        <div class="insight-box">
+            <h3>Objectives</h3>
+            <ul>
+                <li>Understand usage patterns across platforms: 
+                    <p>Examine how frequently students use social media, which platforms are most popular, and how usage varies across different demographics such as age, academic level, and region.</p>
+                </li>
+                <li>Analyze relationship between usage and addiction:
+                    <p>Examine how frequently students use social media, which platforms are most popular, and how usage varies across different demographics such as age, academic level, and region.</p>
+                </li>
+                <li>Evaluate impact on mental health:
+                    <p>Study how social media usage correlates with mental health indicators, identifying whether higher usage leads to increased stress, anxiety, or lower well-being scores.</p>
+                </li>
+                <li>Identify Addiction trends:
+                    <p>Investigate the relationship between time spent on social media and addiction scores to understand how excessive usage contributes to dependency behaviors.</p>
+                </li>
+                <li>Assess Effects on Sleep Patterns:
+                    <p>Analyze how screen time, especially late-night usage, affects sleep duration and quality among students.</p>
+                </li>
+                <li>Measure Academic Performance Impact:
+                    <p>Explore whether increased social media engagement negatively or positively influences students' academic performance and productivity.</p>
+                </li>
+                <li>Generate Data-Driven Insights:
+                    <p>Use interactive dashboards (KPI, Usage Analysis, and Advanced Insights) to present clear, actionable insights that help users easily interpret trends and patterns.</p>
+                </li>
+                <li>Support Awareness and Better Decision-Making:
+                    <p>Provide meaningful conclusions that can help students adopt healthier digital habits and assist educators in understanding behavioral trends.</p>
+                </li>
+            </ul>
+        </div>
+        <div class="insight-box">
+            <h3>Tools Used</h3>
+             <ul>
+            <li>Data Collection:
+                <ol>
+                    <li>Google Forms:
+                        <p>Google Forms was used to design and distribute surveys for collecting primary data directly from students. It enabled structured data gathering on factors such as daily social media usage, sleep patterns, mental health scores, and academic performance. The tool ensured ease of access, real-time responses, and efficient data export for further analysis.</p>
+                    </li>
+                    <li>Kaggle:
+                        <p>Kaggle was utilized to obtain additional datasets and explore publicly available data related to social media usage and student behavior. It also served as a platform for understanding data structures, preprocessing techniques, and benchmarking insights with similar projects.</p>
+                    </li>
+                </ol>
+                     </li>
+            <li>Data Profiling and Analysis:
+                <p>Visual Studio Code was used as the development environment, while Python was employed for data cleaning, preprocessing, and exploratory data analysis (EDA). Libraries such as Pandas, NumPy, Matplotlib, and Seaborn were used to handle missing values, analyze patterns, and generate preliminary visualizations.</p>
+            </li>
+            <li>Data Visualization:
+                <p>Tableau was used to create interactive dashboards, including KPI dashboards, usage analysis, and advanced insights. It helped transform complex datasets into visually appealing charts and graphs, making it easier to identify trends, correlations, and actionable insights.</p>
+            </li>
+            <li>Web Development:
+                <p>These technologies were used to design and develop the project website. HTML structured the content, CSS enhanced the visual styling and layout, and JavaScript added interactivity, allowing users to navigate dashboards and insights seamlessly.</p>
+            </li>
+        </ul>
+        </div>
+    </div>
+</div>
+<div id="kpi" class="section">
+    <div class="card">
+        <h2>KPI Dashboard</h2>
+        <img src="images/dash1A.png" class="dashboard-img" onclick="openModal(this)">
+        <img src="images/dash1B.png" class="dashboard-img" onclick="openModal(this)">
+        <div class="insight-box">
+            <h3>Key Insights</h3>
+            <ul>
+                <li>Moderate mental health score (~6.19):
+                    <p>The average mental health score indicates a moderate level of well-being among students. While not critically low, it suggests that a significant portion of students may be experiencing mild stress, anxiety, or emotional strain—potentially influenced by lifestyle factors such as screen time and online engagement.</p>
+                </li>
+                <li>Noticeable addiction level (~6.36):
+                    <p>The addiction score reflects a relatively high dependency on social media platforms. This suggests that many students exhibit habitual or compulsive usage patterns, which could interfere with daily activities, focus, and overall productivity.</p>
+                </li>
+                <li>High usage (~4.8 hrs/day):
+                    <p>Students are spending a considerable amount of time on social media each day. This level of usage goes beyond casual interaction and indicates prolonged screen exposure, which may contribute to reduced physical activity, lower attention spans, and increased digital fatigue.</p>
+                </li>
+                <li>Reduced sleep (~6.8 hrs):
+                    <p>The average sleep duration is slightly below the recommended 7-9 hours for healthy individuals. This suggests that excessive screen time—especially late-night usage—may be negatively affecting sleep quality and recovery.</p>
+                </li>
+                <li>Interconnected Impact of Usage Patterns:
+                    <p>A clear relationship emerges between high social media usage, increased addiction levels, and declining well-being indicators. Students who spend more time online are more likely to experience reduced sleep and moderate mental health challenges.</p>
+                </li>
+                <li>Conclusion: Behavioral and Health Implications
+                    <p> The combined insights suggest that increased social media usage is closely linked with higher addiction levels, reduced sleep duration, and moderate mental health concerns. This highlights the importance of promoting balanced digital habits and raising awareness about the long-term impact of excessive screen time. Increased usage impacts mental health and sleep quality.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="usage" class="section">
+    <div class="card">
+        <h2>Usage Analysis</h2>
+        <div class="dashboard-layout">
+            <div class="graph-container">
+                <img src="images/dash2A.png" class="graph active-graph">
+                <img src="images/dash2B.png" class="graph">
+                <img src="images/dash2C.png" class="graph">
+                <img src="images/dash2D.png" class="graph">
+            </div>
+            <div class="side-panel">
+                <div class="filters-panel" id="filtersPanel">
+                    <img src="images/dash2_filters.png" class="filters-img">
+                </div>
+                <div class="analysis-text" id="analysisText">
+                    <p><b>Takeaways:</b><br> This graph depicts the most used platforms by students. The bars in orange colour for males and in blue colour for females. Here, Instagram is the platform used by most students, followed by Tiktok, Facebook and so on.</p>
+                </div>
+            </div>
+        </div>
+        <div class="pagination">
+            <span onclick="showGraph(0)" class="active-page">1</span>
+            <span onclick="showGraph(1)">2</span>
+            <span onclick="showGraph(2)">3</span>
+            <span onclick="showGraph(3)">4</span>
+        </div>
+        <div class="insight-box" id="usageInsights">
+            <h3>Key Insights</h3>
+            <ul>
+                <li>Instagram dominates usage:
+                    <p>Among all social media platforms, Instagram emerges as the most widely used by students. Its visually engaging content, reels, and constant updates make it highly addictive and time-consuming. This dominance suggests that students are more inclined toward entertainment-driven platforms rather than informational or professional ones.</p>
+                </li>
+                <li>Most users spend 3-6 hours daily:
+                    <p>A significant proportion of students fall within the 3-6 hours daily usage range, indicating moderate to high engagement levels. This amount of screen time goes beyond casual browsing and reflects habitual usage, which may reduce time available for academic work, physical activity, and real-world social interactions.</p>
+                </li>
+                <li>Academic performance is affected:
+                    <p>The data indicates a noticeable impact of social media usage on students academic performance. Excessive time spent online can lead to reduced concentration, procrastination, and lower productivity, ultimately affecting grades and learning outcomes.</p>
+                </li>
+                <li>Moderate conflicts observed:
+                    <p>Students report experiencing moderate levels of conflict due to social media usage, including disagreements with family or peers and distractions during important activities. While not extremely severe, these conflicts highlight the social and behavioral implications of excessive usage.</p>
+                </li>
+                <li>Conclusion:
+                    <p>Heavy usage impacts academics and social life. These insights suggest that while social media is deeply integrated into students daily lives, excessive usage—especially on platforms like Instagram—can lead to reduced academic focus, increased dependency, and noticeable social conflicts. Maintaining a balanced approach to usage is essential for overall well-being and productivity.</p>
+                </li>
+            </ul>
+        </div>
+    </div> 
+</div> 
+<div id="insights" class="section">
+    <div class="card">
+        <h2>Advanced Insights</h2>
+        <div class="dashboard-layout">
+            <div class="graph-container">
+                <img src="images/dash3A_male.png" class="insights-graph active-insight">
+                <img src="images/dash3A_female.png" class="insights-graph">
+                <img src="images/dash3B.png" class="insights-graph">
+                <img src="images/dash3C.png" class="insights-graph">
+                <img src="images/dash3D_male.png" class="insights-graph">
+                <img src="images/dash3D_female.png" class="insights-graph">
+            </div>
+            <div class="side-panel">
+                <div class="filters-panel">
+                    <img id="insightFilter" src="images/dash3_filters1.png" class="filters-img">
+                </div>
+                <div class="analysis-text" id="insightAnalysis">
+                    <p><b>Takeaways:</b><br> This graph impact of usage hours on addiction levels on MALE students. A strong positive correlation is visible. This explains that with increase in usage hours there is increase in Addiction score as well. Usage hours extends from 1.5 to 7.5 hours of daily usage. Alternatively, addiction score extends from 3.0 to 9.0, 3 being the lowest and 9 being the highest.</p>
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <span onclick="showInsightGraph(0)" class="active-page">1</span>
+        <span onclick="showInsightGraph(1)">2</span>
+        <span onclick="showInsightGraph(2)">3</span>
+        <span onclick="showInsightGraph(3)">4</span>
+        <span onclick="showInsightGraph(4)">5</span>
+        <span onclick="showInsightGraph(5)">6</span>
+        </div>
+        <div class="insight-box">
+            <h3>Key Insights</h3>
+            <ul>
+                <li>Usage strongly correlates with addiction:
+                    <p>The analysis reveals a clear positive relationship between the number of hours spent on social media and the level of addiction among users. As daily usage increases, dependency behaviors such as compulsive checking, difficulty staying offline, and reduced self-control become more prominent. This indicates that prolonged exposure significantly contributes to addictive patterns.</p>
+                </li>
+                <li>Sleep improves mental health:
+                    <p>A strong connection is observed between adequate sleep and better mental health scores. Users who maintain consistent and sufficient sleep schedules tend to report lower stress levels, improved mood, and better emotional stability. This suggests that limiting late-night social media usage can positively impact overall well-being.</p>
+                </li>
+                <li>Undergraduates show more variation:
+                    <p>Undergraduate students display a wider range of behaviors in terms of social media usage, addiction levels, and mental health outcomes. This variability may be due to differences in lifestyle, academic pressure, social environment, and personal habits, making this group more diverse and less predictable compared to others.</p>
+                </li>
+                <li> Global usage trends observed:
+                    <p>The data highlights consistent patterns of social media usage across different countries and regions. Despite cultural and geographical differences, users exhibit similar behaviors such as high engagement, preference for visual platforms, and increasing screen time, indicating that social media influence is globally widespread.</p>
+                </li>
+                <li>Conclusion:
+                    <p>The findings demonstrate that behavioral patterns such as excessive usage and poor sleep habits have a direct and measurable impact on mental health outcomes. Promoting balanced usage and healthier routines is essential to reduce addiction risks and improve overall well-being.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="keyInsights" class="section">
+    <div class="card insight-box">
+        <h2>Key Findings</h2>
+        <ul>
+            <li>Instagram Dominates Usage:
+                <p>Among all social media platforms, Instagram emerges as the most widely used by students. Its visually engaging content, reels, and constant updates make it highly addictive and time-consuming. This dominance suggests that students are more inclined toward entertainment-driven platforms rather than informational or professional ones.</p>
+            </li>
+            <li>Higher social media usage leads to increased addiction:
+                <p>The data shows a strong positive relationship between the amount of time spent on social media and the level of user addiction. Individuals who spend more hours online are more likely to develop compulsive usage habits, including frequent checking, dependency, and difficulty disengaging from platforms.</p>
+            </li>
+            <li>Reduced sleep negatively impacts mental health:
+                <p>Users who experience lower sleep durations tend to report poorer mental health outcomes. Insufficient sleep contributes to increased stress, anxiety, and reduced emotional stability, highlighting the importance of maintaining healthy sleep patterns alongside controlled social media usage.</p>
+            </li>
+            <li>Students spending 3-6 hours are most affected:
+                <p>A significant portion of students fall within the 3-6 hours daily usage range, where the impact of social media becomes most noticeable. This group shows higher levels of distraction, reduced productivity, and a greater tendency toward addiction compared to lower usage groups.</p>
+            </li>
+            <li>Academic performance is significantly influenced:
+                <p>Excessive engagement with social media platforms can negatively affect academic outcomes. Students often face issues such as reduced concentration, procrastination, and lower study efficiency, which ultimately impact their grades and overall academic performance.</p>
+            </li>
+            <li>Social media impact is globally consistent:
+                <p>The patterns observed in the dataset are consistent across different countries and regions. Regardless of geographic location, users demonstrate similar trends in usage behavior, addiction levels, and mental health effects, indicating the widespread and universal influence of social media.</p>
+            </li>
+            <li>Moderate Conflicts Observed:
+                <p>Students report experiencing moderate levels of conflict due to social media usage, including disagreements with family or peers and distractions during important activities. While not extremely severe, these conflicts highlight the social and behavioral implications of excessive usage</p>
+            </li>
+            <li>Conclusion:
+                <p>Overall, the insights suggest that while social media is deeply integrated into students daily lives, excessive usage—especially on platforms like Instagram—can lead to reduced academic focus, increased dependency, and noticeable social conflicts. Maintaining a balanced approach to usage is essential for overall well-being and productivity.</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="aboutMe" class="section">
+    <div class="card">
+        <h2>About Me</h2>
+        <p><b>Name:</b> Kulpreet Kaur Sembhi</p>
+        <p><b>Skills:</b> Data Analysis, Tableau, Python, Power BI</p>
+        <p><b>Project:</b> Student Social Media Analytics</p>
+        <p><b>Email:</b> kulpreetsembhi@email.com</p>
+        <p><b>LinkedIn:</b>Kulpreet Sembhi</p>
+        <p><b>Contact:</b>977957XXXX</p>
+    </div>
+</div>
+<div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modal-img">
+</div>
+<footer>
+© 2026 Student Analytics Portfolio
+</footer>
+<script>
+function showSection(id) {
+    let sections = document.querySelectorAll('.section');
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+function openModal(img) {
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("modal-img").src = img.src;
+}
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+function showGraph(index) {
+    let graphs = document.querySelectorAll('.graph');
+    let pages = document.querySelectorAll('#usage .pagination span');
+    let filtersPanel = document.getElementById('filtersPanel');
+    let analysisText = document.getElementById('analysisText');
+    graphs.forEach(g => g.classList.remove('active-graph'));
+    pages.forEach(p => p.classList.remove('active-page'));
+    graphs[index].classList.add('active-graph');
+    pages[index].classList.add('active-page');
+    if (index === 0 || index === 2) {
+        filtersPanel.style.display = "flex";
+    } else {
+        filtersPanel.style.display = "none";
+    }
+    if (index === 0) {
+        analysisText.innerHTML = `
+        <p><b>Takeaways:</b><br> This graph depicts the most used platforms used by students. Here, Instagram is the platform used by most students, followed by Tiktok, Facebook and so on.</p>`;
+    }
+    else if (index === 1) {
+        analysisText.innerHTML = `
+        <p><b>Takeaways:</b><br> This Graph shows average daily hours of social media usage by stundents. This average ranges from 0.5 hours to 8.5 hours of daily usage. The highest number of students use social media for about 4.5 hours on daily basis. 40% of students usage hours are below 4.5 hours of usage and rest 60% are more than 4.5 hours.</p>`;
+    }
+    else if (index === 2) {
+        analysisText.innerHTML = `
+        <p><b>Takeaways:</b><br> This graph shows student perception of social media's affect on academics. in this, majority of students say that social media affects academics and minority of students say that it doesnot. The blue bars represents males and orange bars represnt females. We can conclude that academics are affected by social media as surveyed by students.</p>`;
+    }
+    else if (index === 3) {
+        analysisText.innerHTML = `
+        <p><b>Takeaways:</b><br> This graph depicts number of conflicts faced by students on social media. the range of conflicts are from 0 to 5. Highest number of students face 3 conflicts. </p>`;
+    }
+}
+function showInsightGraph(index) {
+    let graphs = document.querySelectorAll('.insights-graph');
+    let pages = document.querySelectorAll('#insights .pagination span');
+    let analysisText = document.getElementById('insightAnalysis');
+    let filterImg = document.getElementById('insightFilter');
+    graphs.forEach(g => g.classList.remove('active-insight'));
+    pages.forEach(p => p.classList.remove('active-page'));
+    graphs[index].classList.add('active-insight');
+    pages[index].classList.add('active-page');
+    const texts = [
+        "This graph impact of usage hours on addiction levels on MALE students. A strong positive correlation is visible. This explains that with increase in usage hours there is increase in Addiction score as well. Usage hours extends from 1.5 to 7.5 hours of daily usage. Alternatively, addiction score extends from 3.0 to 9.0, 3 being the lowest and 9 being the highest. ",
+        "This graph shows usage vs addiction for FEMALE students. The trend is similar but slightly less steep. This also explains that with increase in usage hours there is increase in Addiction score as well. Usage hours extends from 1 to 9 hours of daily usage. Alternatively, addiction score extends from 3.0 to 9.0, 3 being the lowest and 9 being the highest. Here, Females has a higher rate of daily hours of usage than Males, leading to higher addiction scores.",
+        "This graph highlights Global Analysis of Student Addiction Scores by Country. The more the addiction score of students is, darker is the country highlighted with. Higher the number of students of a country, bigger is its square with which the country is showcased. ",
+        "This graph shows variation of addiction scores across academic levels, with undergraduates showing wider spread, Graduates showing moderate spread and students of high school showing least spread. Average addiction score is depicted as 6.5. ",
+        "This graph shows Impact of Sleep Hours on Mental Health on Male students Sleep hours ranges from 4 to 9.5. Mental healt score extends from 4 to 8. This graph also shows a positive correlation between Sleep hours and mental health score, that means, more sleep is linked to better mental health outcomes. It strongly supports the idea that sleep quality and duration are important factors in mental well-being.",
+        "This graph shows Impact of Sleep Hours on Mental Health on Female students Sleep hours ranges from 4 to 9.5. Mental healt score extends from 4 to 8. This graph also shows a positive correlation between Sleep hours and mental health score, that means, more sleep is linked to better mental health outcomes. It strongly supports the idea that sleep quality and duration are important factors in mental well-being."
+    ];
+    const filters = [
+        "images/dash3_filters1.png",
+        "images/dash3_filters2.png",
+        "images/dash3_filters3.png",
+        "images/dash3_filters4.png",
+        "images/dash3_filters5.png",
+        "images/dash3_filters6.png"
+    ];
+    analysisText.innerHTML = `<p><b>Takeaways:</b><br> ${texts[index]}</p>`;
+    filterImg.src = filters[index];
+}
+</script>
+</body>
+</html>

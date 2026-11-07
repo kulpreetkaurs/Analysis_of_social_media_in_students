@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us | Student Analytics</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+.container {
+    width: 400px;
+    margin: 80px auto;
+    padding: 25px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 15px;
+    text-align: center;
+}
+input, textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+}
+button {
+    width: 50%;
+    padding: 10px;
+    background: #00ffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#msg {
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Contact Us</h2>
+```<br>
+<form onsubmit="sendMessage(event)">
+    <input id="name" type="text" placeholder="Your Name" required>
+    <input id="phone" type="tel" placeholder="Phone Number" 
+           pattern="[0-9]{10}" required>
+    <input id="email" type="email" placeholder="Email Address" required>
+    <textarea id="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+</form>
+<p id="msg"></p>
+```
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDVaLxUbdPTFRlBE7w_js72Z_M8IplpoX8",
+  authDomain: "student-social-media-analysis.firebaseapp.com",
+  projectId: "student-social-media-analysis"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window.sendMessage = async function (event) {
+    event.preventDefault(); 
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+    if (!name || !email || !message) {
+        document.getElementById("msg").innerText = "Please fill required fields ❌";
+        return;
+    }
+    try {
+        await addDoc(collection(db, "messages"), {
+            name: name,
+            phone: phone,
+            email: email,
+            message: message,
+            time: new Date()
+        });
+        document.getElementById("msg").innerHTML = "✅ Message sent successfully!";
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("message").value = "";
+    } catch (error) {
+        document.getElementById("msg").innerText = error.message;
+    }
+};
+</script>
+</body>
+</html>
